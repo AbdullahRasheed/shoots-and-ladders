@@ -1,12 +1,17 @@
 package me.dedose.game.handlers;
 
+import me.dedose.game.main.Main;
+
 import java.awt.*;
 
 public abstract class GameObject {
 
-    protected int x, y;
-    protected ID id;
-    protected int velX, velY;
+    public static final double accelY = Main.UNIT/20.0; // gravitational acceleration for player
+    public static final double terminalVel = 0.4*Main.UNIT;  //terminal velocity of player
+
+    protected int x, y; // coordinates of player
+    protected ID id; //player id
+    protected int velX, velY; // velocities of player
 
     public GameObject(int x, int y, ID id){
         this.x = x;
