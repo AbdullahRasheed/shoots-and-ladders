@@ -2,8 +2,9 @@ package me.dedose.game.controls;
 
 import me.dedose.game.handlers.Handler;
 
-import java.awt.event.MouseAdapter;
+import javax.swing.*;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseAdapter;
 
 public class MouseListener extends MouseAdapter {
 
@@ -13,9 +14,16 @@ public class MouseListener extends MouseAdapter {
     }
 
     @Override
-    public void mouseMoved(MouseEvent e) {
-        // To get the player use handler.clientPlayer
-        int x = e.getX();
-        int y = e.getY();
+    public void mousePressed(MouseEvent e) {
+        if (e.getButton() == 1) {
+            handler.clientPlayer.setFiringState(true);
+        }
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        if (e.getButton() == 1) {
+            handler.clientPlayer.setFiringState(false);
+        }
     }
 }

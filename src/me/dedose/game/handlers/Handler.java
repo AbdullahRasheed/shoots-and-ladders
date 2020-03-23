@@ -13,13 +13,15 @@ public class Handler {
     public ClientPlayer clientPlayer;
 
     public void tick(){
-        for (GameObject gameObject : object) {
+        LinkedList<GameObject> copy = (LinkedList<GameObject>) object.clone(); // quik fix
+        for (GameObject gameObject : copy) {
             gameObject.tick();
         }
     }
 
     public void render(Graphics g){
-        for (GameObject gameObject : object) {
+        LinkedList<GameObject> renderObjects = (LinkedList<GameObject>) object.clone(); // quik fix
+        for (GameObject gameObject : renderObjects) {
             gameObject.render(g);
         }
     }

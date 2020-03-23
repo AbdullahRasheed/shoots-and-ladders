@@ -1,4 +1,4 @@
-package me.dedose.game.client.packets;
+package me.dedose.packets;
 
 import java.io.Serializable;
 

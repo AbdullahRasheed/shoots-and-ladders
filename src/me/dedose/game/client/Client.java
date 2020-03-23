@@ -1,6 +1,7 @@
 package me.dedose.game.client;
 
-import me.dedose.game.client.packets.RemoveConnectionPacket;
+import me.dedose.game.handlers.Handler;
+import me.dedose.packets.RemoveConnectionPacket;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -20,10 +21,12 @@ public class Client implements Runnable{
 
     private boolean running = false;
     private ClientEventListener listener;
+    private Handler handler;
 
-    public Client(String host, int port) {
+    public Client(String host, int port, Handler handler) {
         this.host = host;
         this.port = port;
+        this.handler = handler;
     }
 
     public void connect() {
@@ -31,7 +34,7 @@ public class Client implements Runnable{
             socket = new Socket(host,port);
             out = new ObjectOutputStream(socket.getOutputStream());
             in = new ObjectInputStream(socket.getInputStream());
-            listener = new ClientEventListener();
+            listener = new ClientEventListener(handler);
             new Thread(this).start();
         }catch(ConnectException e) {
             System.out.println("Unable to connect to the server");
@@ -56,6 +59,7 @@ public class Client implements Runnable{
     public void sendObject(Object packet) {
         try {
             out.writeObject(packet);
+            out.flush();
         }catch(IOException e) {
             e.printStackTrace();
         }

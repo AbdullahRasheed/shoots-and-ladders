@@ -1,9 +1,12 @@
 package me.dedose.game.render;
 
+import me.dedose.game.client.Client;
 import me.dedose.game.main.Main;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class Window extends Canvas {
 
@@ -13,6 +16,10 @@ public class Window extends Canvas {
         this.width = width;
         this.height = height;
         JFrame frame = new JFrame(title);
+
+        // TODO: make wOrk
+        ImageIcon icon = new ImageIcon("icon.png");
+        frame.setIconImage(icon.getImage());
 
         frame.setPreferredSize(getDimension());
         frame.setMaximumSize(getDimension());
@@ -24,7 +31,16 @@ public class Window extends Canvas {
         frame.setLocationRelativeTo(null);
         frame.add(main);
         frame.setVisible(true);
+
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                main.client.close();
+            }
+        });
+
         main.start();
+
     }
 
     private Dimension getDimension(){

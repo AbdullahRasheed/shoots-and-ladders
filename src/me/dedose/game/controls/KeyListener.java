@@ -19,10 +19,15 @@ public class KeyListener extends KeyAdapter {
 
         switch (key){
             // for testing vv
+            case KeyEvent.VK_S:
             case KeyEvent.VK_DOWN:
-                handler.clientPlayer.changeHealth(-1);
+                handler.clientPlayer.changeAmmo(-1);
+                handler.clientPlayer.changeHealth(-11);
                 break;
             // for testing ^^
+
+            // player movement
+            case KeyEvent.VK_W:
             case KeyEvent.VK_UP:
                 if(handler.clientPlayer.onFloor){
                     handler.clientPlayer.setVelY(-(int)Main.UNIT/2);
@@ -30,12 +35,15 @@ public class KeyListener extends KeyAdapter {
                 }
                 break;
 
+            case KeyEvent.VK_D:
             case KeyEvent.VK_RIGHT:
                 handler.clientPlayer.setVelX((int)Main.UNIT/9);
                 break;
 
+            case KeyEvent.VK_A:
             case KeyEvent.VK_LEFT:
                 handler.clientPlayer.setVelX(-(int)Main.UNIT/9);
+                break;
         }
     }
 
@@ -44,10 +52,12 @@ public class KeyListener extends KeyAdapter {
         int key = e.getKeyCode();
 
         switch (key){
+            case KeyEvent.VK_D:
             case KeyEvent.VK_RIGHT:
                 if(handler.clientPlayer.getVelX() == (int)Main.UNIT/9) handler.clientPlayer.setVelX(0);
                 break;
 
+            case KeyEvent.VK_A:
             case KeyEvent.VK_LEFT:
                 if(handler.clientPlayer.getVelX() == -(int)Main.UNIT/9) handler.clientPlayer.setVelX(0);
                 break;
